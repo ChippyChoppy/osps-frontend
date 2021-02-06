@@ -6,7 +6,7 @@ class Main extends React.Component {
     }
     
     componentDidMount() {
-        fetch('https://api.propublica.org/congress/v1/116/senate/members.json', {
+        fetch('https://api.propublica.org/congress/v1/116/house/members.json', {
             headers: new Headers ({
               
                 'X-API-KEY': process.env.REACT_APP_PROPUBLICA_API_KEY,
@@ -15,7 +15,7 @@ class Main extends React.Component {
             .then(response => response.json())
             .then(senatorArray => {
                 this.setState({senators: senatorArray.results[0].members})
-                console.log(senatorArray.results[0].members[0])
+                console.log(senatorArray.results[0].members)
             })
     }
 
@@ -23,8 +23,8 @@ class Main extends React.Component {
         return this.state.senators.map(senator => {
             return ( 
             <div>
-                <p>{senator.first_name} {senator.last_name} </p>
-                <p>{senator.party}</p>
+                <p>{senator.first_name} {senator.last_name} ({senator.party})</p>
+                <a href={senator.contact_form} >Contact Me</a>
             </div>
             )
         })
